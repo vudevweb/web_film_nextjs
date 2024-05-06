@@ -1,0 +1,53 @@
+.navbar {
+     height: 80px;
+     margin: 20px;
+     border-radius: 16px;
+}
+
+.navbar-toggler {
+     border: none !important;
+     font-size: 1.5rem;
+}
+.navbar-toggler:focus , .btn-close:focus{
+     box-shadow: none !important;
+     outline: none !important;
+}
+
+.nav-link-vd {
+     font-weight: bold !important;
+     position: relative;
+}
+.navbar-brand {
+     font-weight: bold !important;
+     color: orange !important;
+}
+.nav-link-vd.active {
+     color: orange !important;
+}
+
+.nav-link-vd:hover, .nav-link-vd:focus {
+     color: orange !important;
+     transition: 0.3s ease-in-out;
+}
+
+@media screen and (min-width: 911px){
+     .nav-link-vd::before {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 0;
+          height: 2px;
+          background-color: orange !important;
+          border-radius: 20px;
+          visibility: hidden;
+          transition: width 0.3s ease-in-out; /* Changed from transform to width */
+     }
+     
+     .nav-link-vd:hover::before {
+          visibility: visible;
+          width: 100%;
+     }
+     
+}
