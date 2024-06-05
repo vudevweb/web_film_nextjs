@@ -1,4 +1,5 @@
 
+
 "use client"
 import Link from "next/link"
 import { useState, useEffect, useCallback } from "react";
@@ -71,7 +72,7 @@ function XemPhim({ params }) {
                                    <strong><i className="fe fe-hash"></i>{currentTap}</strong>
                               </div>
                               <div>
-                                   {/* <ReactPlayer
+                                   <ReactPlayer
                                         url={tapPhim.link_m3u8}
                                         width="100%" height="500px" 
                                         autoPlay={true} controls={true}
@@ -87,16 +88,8 @@ function XemPhim({ params }) {
                                              localStorage: true,
                                         }}
 
-                                   /> */}
-                                   <iframe 
-                                        className="video-iframe"
-                                        title={tapPhim.filename}
-                                        src={tapPhim.link_embed} 
-                                        width="100%" height="100%" 
-                                        frameborder="0"
-                                        allowFullScreen >
-
-                                   </iframe>
+                                   />
+                                   {/* <iframe src={tapPhim.link_embed} width="100%" height="500" frameborder="0"></iframe> */}
                               </div>
                          </div>
 

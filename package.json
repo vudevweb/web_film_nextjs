@@ -11,7 +11,9 @@
   "dependencies": {
     "@ant-design/nextjs-registry": "^1.0.0",
     "@next/env": "^14.2.3",
+    "@nextui-org/modal": "^2.0.35",
     "antd": "^5.17.0",
+    "dotenv": "^16.4.5",
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18",

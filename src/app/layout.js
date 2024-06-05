@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 import Script from "next/script";
 import { Suspense } from "react";
 import Loading from "./loading";

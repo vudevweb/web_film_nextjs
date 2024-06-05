@@ -12,8 +12,10 @@ const DanhMuc = async ({ params, searchParams }) => {
      const seoOnPage = data.data.seoOnPage;
      const pagination = data.data.params.pagination;
      const totalPages = pagination.totalPages;
+     const baseUrl = data.data.breadCrumb[0].slug;
+
      return (
-          <CardMovie movies={movies} domain={urlImage} totalPages={totalPages} slug={slug} page={page}/>
+          <CardMovie movies={movies} domain={urlImage} totalPages={totalPages} slug={slug} page={page} baseUrl={baseUrl}/>
      );
 }
 

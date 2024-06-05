@@ -13,7 +13,7 @@ function AppFooter() {
                     <li className="ms-3"><a className="text-muted fw text-warning" href="https://www.facebook.com/vudevweb" target="_blank" ><i className="fe fe-facebook"></i></a></li>
                     <li className="ms-3"><a className="text-muted fw text-warning" href="https://t.me/vudevweb" target="_blank" ><i className="fe fe-message-circle"></i></a></li>
                     <li className="ms-3"><a className="text-muted fw text-warning" href="https://www.instagram.com/vudevweb" target="_blank"><i className="fe fe-instagram"></i></a></li>
-                    <li className="ms-3"><a className="text-muted fw text-warning" href="https://github.com/vudevweb" target="_blank" ><i className="fe fe-github"></i></a></li>
+                    {/* <li className="ms-3"><a className="text-muted fw text-warning" href="https://github.com/vudevweb" target="_blank" ><i className="fe fe-github"></i></a></li> */}
                </ul>
           </footer>
 

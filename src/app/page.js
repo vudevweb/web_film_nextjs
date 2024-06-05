@@ -1,8 +1,10 @@
 
 import DanhMucPhim from "@/components/template/danhMuc";
-
+import Noti from "@/components/page/home/noti"
 
 const Home = async () => {
+
+
   const apiPhimMoi = "https://phimapi.com/danh-sach";
   const api = "https://phimapi.com/v1/api/danh-sach";
 
@@ -21,6 +23,9 @@ const Home = async () => {
 
   return (
     <div>
+      <Noti />
+
+      {/* List phim */}
       <>
         {/* PHIM MỚI NHẤT */}
         <DanhMucPhim movies={newMovie.items} domain="" categoryTitle="PHIM MỚI NHẤT" />
