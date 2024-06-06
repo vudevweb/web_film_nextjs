@@ -111,13 +111,13 @@ function XemPhim({ params }) {
                                         <div key={index} className="ps-3">
                                              <div className="text-warning mb-2"> <strong>Server: </strong>{item.server_name}</div>
                                              {item.server_data.map((tapVip, i) => (
-                                                  <Link
+                                                  <a
                                                        key={i}
                                                        href={`/xem-phim/${movie.slug}/${tapVip.slug}?server=${encodeURIComponent(item.server_name)}`}
                                                        className={`btn btn-secondary btn-sm me-3 mb-3 ${item.server_name === server && tapVip.slug === tap ? 'btn btn-warning' : ''}`}
                                                   >
                                                        {tapVip.name}
-                                                  </Link>
+                                                  </a>
                                              ))}
                                         </div>
                                    ))}
