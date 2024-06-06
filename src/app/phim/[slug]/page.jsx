@@ -7,7 +7,7 @@ const Phim = async ({ params }) => {
      const slug = params.slug;
      const res = await fetch(`${api + slug}`);
      const data = await res.json();
-     console.log(data);
+     // console.log(data);
      return (
           <div>
                <Info data={data} />

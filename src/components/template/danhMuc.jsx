@@ -13,7 +13,7 @@ function DanhMucPhim({ movies, categoryTitle, domain }) {
           slidesToShow: 6,
           slidesToScroll: 1,
           autoplay: true,
-          autoplaySpeed: 2000,
+          autoplaySpeed: 4000,
           pauseOnHover: true,
           responsive: [
                {

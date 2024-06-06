@@ -15,7 +15,7 @@ function CardMovie({ movies , domain , totalPages , slug , page , baseUrl}) {
           window.location.href = `${baseUrl}?page=${page}`;
      };
      
-     console.log(totalPages);
+     // console.log(totalPages);
      return (
           <>
                <div className="row">
