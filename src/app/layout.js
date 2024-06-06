@@ -1,5 +1,5 @@
 require('dotenv').config();
-
+import { Analytics } from "@vercel/analytics/react"
 import Script from "next/script";
 import { Suspense } from "react";
 import Loading from "./loading";
@@ -24,16 +24,15 @@ export default function RootLayout({ children }) {
     <html lang="vi" data-theme="dark">
 
       <body className="container">
-
-        <AppHeader />
-        
-          <Suspense fallback={<Loading />}>
-            <main className="mt-17">
-              <AppSearch />
-              {children}
-            </main>
-          </Suspense>
-        <AppFooter />
+        <Analytics/>
+        <Suspense fallback={<Loading />}>
+          <AppHeader />
+              <main className="mt-17">
+                <AppSearch />
+                {children}
+              </main>
+          <AppFooter />
+        </Suspense>
 
         <Script src="/js/jquery-3.5.1.slim.min.js" strategy="beforeInteractive" />
         <Script src="/js/bootstrap.bundle.min.js" strategy="beforeInteractive" />
