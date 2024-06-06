@@ -144,22 +144,22 @@ const info = (data) => {
                                              {episodes.map((episode, index) => (
                                                   <div key={index} className="text-center mt-3">
                                                        {episode.server_data.slice(0, 1).map((ep, i) => (
-                                                            <Link
+                                                            <a
                                                                  key={i}
                                                                  href={`/xem-phim/${movie.slug}/${ep.slug
                                                                       }?server=${encodeURIComponent(episode.server_name)}`}
                                                                  className="btn btn-warning me-3"
                                                             >
                                                                  Xem ngay
-                                                            </Link>
+                                                            </a>
                                                        ))}
-                                                       <Link
+                                                       <a
                                                             href={movie.trailer_url}
                                                             target="_blank"
                                                             className="btn btn-danger me-3"
                                                        >
                                                             Xem trailer
-                                                       </Link>
+                                                       </a>
                                                   </div>
                                              ))}
                                         </div>
@@ -188,14 +188,14 @@ const info = (data) => {
                                                             {episode.server_name}
                                                        </div>
                                                        {episode.server_data.map((ep, i) => (
-                                                            <Link
+                                                            <a
                                                                  key={i}
                                                                  href={`/xem-phim/${movie.slug}/${ep.slug
                                                                       }?server=${encodeURIComponent(episode.server_name)}`}
                                                                  className="btn btn-secondary btn-sm mt-2 me-2"
                                                             >
                                                                  {ep.name}
-                                                            </Link>
+                                                            </a>
                                                        ))}
                                                   </div>
                                              ))}
