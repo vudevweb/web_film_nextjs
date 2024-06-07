@@ -28,8 +28,8 @@ const Noti = () => {
                     </div>
                     <p className='mt-2'>
                         👉 Liên hệ telegram &nbsp; 
-                        <a href="https://t.me/vudevwebChannel" target='_blank'>VUDEVWEB-CHANNEL</a>
-                        &nbsp; để yêu cầu phim với
+                        <a href="https://t.me/vudevwebChannel" target='_blank'>VUDEVWEB</a>
+                        &nbsp; để yêu cầu phim!
                     </p>
                 </div>
             </Modal>
