@@ -16,7 +16,7 @@ const TheLoai = async({ params, searchParams }) => {
      const seoOnPage = data.data.seoOnPage;
      const pagination = data.data.params.pagination;
      const totalPages = data.data.params.pagination.totalPages;
-     console.log(totalPages);
+     // console.log(totalPages);
      const baseUrl = data.data.breadCrumb[0].slug;
 
      return (

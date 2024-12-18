@@ -1,10 +1,7 @@
-
 import DanhMucPhim from "@/components/template/danhMuc";
-import Noti from "@/components/page/home/noti"
+import Noti from "@/components/page/home/noti";
 
 const Home = async () => {
-
-
   const apiPhimMoi = "https://phimapi.com/danh-sach";
   const api = "https://phimapi.com/v1/api/danh-sach";
 
@@ -28,19 +25,39 @@ const Home = async () => {
       {/* List phim */}
       <>
         {/* PHIM MỚI NHẤT */}
-        <DanhMucPhim movies={newMovie.items} domain="" categoryTitle="PHIM MỚI NHẤT" />
+        <DanhMucPhim
+          movies={newMovie.items}
+          domain=""
+          categoryTitle="PHIM MỚI NHẤT"
+        />
 
         {/* PHIM LẺ */}
-        <DanhMucPhim movies={phimLe.data.items} domain={urlImage} categoryTitle="PHIM LẺ" />
+        <DanhMucPhim
+          movies={phimLe.data.items}
+          domain={urlImage}
+          categoryTitle="PHIM LẺ"
+        />
 
         {/* PHIM BỘ */}
-        <DanhMucPhim movies={phimBo.data.items} domain={urlImage} categoryTitle="PHIM BỘ" />
+        <DanhMucPhim
+          movies={phimBo.data.items}
+          domain={urlImage}
+          categoryTitle="PHIM BỘ"
+        />
 
         {/* PHIM HOẠT HÌNH */}
-        <DanhMucPhim movies={phimHoatHinh.data.items} domain={urlImage} categoryTitle="PHIM HOẠT HÌNH" />
+        <DanhMucPhim
+          movies={phimHoatHinh.data.items}
+          domain={urlImage}
+          categoryTitle="PHIM HOẠT HÌNH"
+        />
 
         {/* TV SHOW */}
-        <DanhMucPhim movies={tvShow.data.items} domain={urlImage} categoryTitle="TV SHOW" />
+        <DanhMucPhim
+          movies={tvShow.data.items}
+          domain={urlImage}
+          categoryTitle="TV SHOW"
+        />
       </>
     </div>
   );
