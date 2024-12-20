@@ -95,5 +95,7 @@ const CardMovie = ({
     </>
   );
 }
-
+// 10:19  Error: Component definition is missing display name  react/display-name
+CardMovie.displayName = "CardMovie";
 export default React.memo(CardMovie);
+
