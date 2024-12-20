@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-
+import Image from "next/image";
 const Info = ({ data }) => {
   if (!data || !data.movie) {
     return <div>Error loading movie details.</div>;
@@ -181,17 +181,22 @@ const Info = ({ data }) => {
     <div className="card">
       <div className="card-body row">
         <div className="col-12 col-md-3 mb-3 mb-md-0">
-          <img
-            loading="lazy"
-            src={
-              poster_url ||
-              "https://lh5.googleusercontent.com/proxy/CGWXSjMMd2FLW31MkAwyyg6CTEa5JYhkmoqOjQOmJbdrIKICImHlALT85CBWNPzJ5WdaGavA6OBY9SSO7YMWaQ7om0jHPu8"
-            }
-            alt={name || "Poster"}
-            className="rounded-2"
-            width="100%"
-            style={{ objectFit: "cover" }}
-          />
+          <div
+            className="position-relative"
+            style={{ width: "100%", height: "450px" }}
+          >
+            <Image
+              loading="lazy"
+              src={
+                poster_url ||
+                "https://lh5.googleusercontent.com/proxy/CGWXSjMMd2FLW31MkAwyyg6CTEa5JYhkmoqOjQOmJbdrIKICImHlALT85CBWNPzJ5WdaGavA6OBY9SSO7YMWaQ7om0jHPu8"
+              }
+              alt={name || "Poster"}
+              className="rounded-2"
+              fill
+              style={{ objectFit: "cover" }}
+            />
+          </div>
         </div>
         <div className="col-12 col-md-9">
           <ul

@@ -63,9 +63,11 @@ const Page = () => {
   };
 
   return (
-    <div style={{ height: "100vh" }}>
+    <div style={{ minHeight: "100vh" }}>
       <div className="mb-5">
-        <h3 className="text-warning">Nội dung tìm kiếm &quot;{keyword}&quot;</h3>
+        <h3 className="text-warning">
+          Nội dung tìm kiếm &quot;{keyword}&quot;
+        </h3>
       </div>
       <div className="mb-5">
         <input
@@ -92,7 +94,7 @@ const Page = () => {
         <div className="">
           <Movie movies={displayedMovies} domain={img} />
           {displayedMovies.length < movies.length && (
-            <div className="text-center mt-5">
+            <div className="text-center my-5">
               <button
                 onClick={handleLoadMore}
                 className="btn btn-warning"

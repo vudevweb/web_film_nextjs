@@ -9,7 +9,6 @@ import Image from "next/image";
 
 const MovieCard = React.memo(({ movie, domain }) => {
   const { slug, poster_url, name } = movie;
-
   return (
     <div className="col-6 col-sm-4 col-lg-3 col-xl-2 mb-3">
       <div className="card card_movie text-center bg-none mt-1">
@@ -67,7 +66,8 @@ const CardMovie = ({
 }) => {
   const router = useRouter();
   const [currentPage, setCurrentPage] = React.useState(page);
-
+  console.log(totalPages);
+  
   const handlePageChange = (newPage) => {
     if (newPage === currentPage) return;
     router.push(`${baseUrl}?page=${newPage}`);
@@ -88,7 +88,7 @@ const CardMovie = ({
         <Pagination
           style={{ color: "white" }}
           defaultCurrent={1}
-          total={1000}
+          total={totalPages * 10}
           current={currentPage}
           onChange={handlePageChange}
         />

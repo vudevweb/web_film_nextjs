@@ -105,7 +105,7 @@ const XemPhim = ({ params }) => {
   );
 
   return (
-    <div style={{ height: "100vh" }}>
+    <div style={{ minHeight: "100vh" }}>
       <div className="card">
         <div className="card-header">
           <Breadcrumb />

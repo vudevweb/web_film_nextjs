@@ -21,10 +21,7 @@ const fetchMovieDetails = async (api, slug) => {
 const Phim = async ({ params }) => {
   const api = process.env.API_CT_PHIM;
   const slug = params.slug;
-
   const data = await fetchMovieDetails(api, slug);
-  console.log(data);
-
   if (!data) {
     return <div>Lỗi khi lấy dữ liệu phim. Vui lòng thử lại sau.</div>;
   }
