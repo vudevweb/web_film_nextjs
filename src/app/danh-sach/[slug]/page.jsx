@@ -1,4 +1,4 @@
-import CardMovie from "@/components/template/cardMovie";
+import CardMovie from "@/components/template/CardMovie";
 import BreadCrumb from "@/components/template/BreadCrumb";
 const fetchMoviesByCategory = async (slug, page) => {
   const api =

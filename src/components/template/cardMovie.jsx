@@ -56,14 +56,14 @@ const MovieCard = React.memo(({ movie, domain }) => {
   );
 });
 
-function CardMovie({
+const CardMovie = ({
   movies = [],
   domain = "",
   totalPages = 1,
   slug = "",
   page = 1,
   baseUrl = "/",
-}) {
+}) => {
   const router = useRouter();
   const [currentPage, setCurrentPage] = React.useState(page);
 
