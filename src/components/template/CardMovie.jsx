@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Pagination } from "antd";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-// Component con cho từng phim
+
 const MovieCard = React.memo(({ movie, domain }) => {
   const { slug, poster_url, name } = movie;
 
@@ -55,6 +55,7 @@ const MovieCard = React.memo(({ movie, domain }) => {
     </div>
   );
 });
+MovieCard.displayName = "MovieCard";
 
 const CardMovie = ({
   movies = [],
@@ -94,8 +95,7 @@ const CardMovie = ({
       </div>
     </>
   );
-}
-// 10:19  Error: Component definition is missing display name  react/display-name
+};
+
 CardMovie.displayName = "CardMovie";
 export default React.memo(CardMovie);
-
