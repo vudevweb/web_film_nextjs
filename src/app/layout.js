@@ -11,14 +11,15 @@ import "../assets/css/navbar.css";
 import "../assets/css/theme.min.css";
 import "../assets/feather/feather.css";
 import "../assets/css/owl.carousel.min.css";
+import "../assets/css/custom.css";
 
-export const metadata = {
-  title: "Xem phim online miễn phí",
-  description:
-    "Phimmoi ⚡ Phim HD VietSub | Phim Lẻ | Phim Bộ | Phim Chiếu Rạp | Xem phim Online miễn phí",
-  imageUrl:
-    "https://scontent.fsgn5-6.fna.fbcdn.net/v/t39.30808-1/381271892_805928278202949_6388609339400536337_n.jpg?stp=dst-jpg_p200x200&_nc_cat=108&ccb=1-7&_nc_sid=5f2048&_nc_ohc=YFb859k94L8Q7kNvgEyV2nL&_nc_ht=scontent.fsgn5-6.fna&oh=00_AfAxzB7t6FbhZPtOvgKvxggnMuv_greJ9Ge85i9sJVLKBw&oe=663DB2D2",
-};
+// export const metadata = {
+//   title: "Xem phim online miễn phí",
+//   description:
+//     "Phimmoi ⚡ Phim HD VietSub | Phim Lẻ | Phim Bộ | Phim Chiếu Rạp | Xem phim Online miễn phí",
+//   imageUrl:
+//     "https://scontent.fsgn5-6.fna.fbcdn.net/v/t39.30808-1/381271892_805928278202949_6388609339400536337_n.jpg?stp=dst-jpg_p200x200&_nc_cat=108&ccb=1-7&_nc_sid=5f2048&_nc_ohc=YFb859k94L8Q7kNvgEyV2nL&_nc_ht=scontent.fsgn5-6.fna&oh=00_AfAxzB7t6FbhZPtOvgKvxggnMuv_greJ9Ge85i9sJVLKBw&oe=663DB2D2",
+// };
 
 export default function RootLayout({ children }) {
   return (
@@ -27,10 +28,12 @@ export default function RootLayout({ children }) {
         <Analytics />
         <Suspense fallback={<Loading />}>
           <AppHeader />
-          <main className="mt-17">
+          <main className="mt-17" style={{ Height: "100vh" }}>
             <AppSearch />
             {children}
           </main>
+          {/* nếu route "xem-phim/{slug}" thì không nhúng footer */}
+
           <AppFooter />
         </Suspense>
 

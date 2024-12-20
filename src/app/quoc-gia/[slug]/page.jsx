@@ -1,27 +1,54 @@
-import CardMovie from '@/components/template/cardMovie';
+import CardMovie from "@/components/template/cardMovie";
+import BreadCrumb from "@/components/template/BreadCrumb";
+const fetchMoviesByCountry = async (api, slug, page) => {
+  if (!api) {
+    console.error("API endpoint is not defined.");
+    return null;
+  }
 
-const TheLoai = async({ params, searchParams }) => {
-     const api = process.env.API_CT_QUOC_GIA;
-     const slug = params.slug;
-     const page = searchParams.page || 1;
+  try {
+    const res = await fetch(`${api + slug}?page=${page}`);
+    if (!res.ok) throw new Error(`Failed to fetch data for slug: ${slug}`);
+    const data = await res.json();
+    return data.data;
+  } catch (error) {
+    console.error("Error fetching movies by country:", error);
+    return null;
+  }
+};
 
-     // console.log(`${api + slug}`);
+const TheLoai = async ({ params, searchParams }) => {
+  const api = process.env.API_CT_QUOC_GIA;
+  const slug = params.slug;
+  const page = parseInt(searchParams.page || 1, 10);
+  const data = await fetchMoviesByCountry(api, slug, page);
 
-     const res = await fetch(`${api + slug}?page=${page}`);
-     const data = await res.json();
-     // console.log(data.data);
-     const movies = data.data.items;
-     // console.log(movies);
-     const urlImage = data.data.APP_DOMAIN_CDN_IMAGE
-     const seoOnPage = data.data.seoOnPage;
-     const pagination = data.data.params.pagination;
-     const totalPages = data.data.params.pagination.totalPages;
-     // console.log(totalPages);
-     const baseUrl = data.data.breadCrumb[0].slug;
+  if (!data) {
+    return <div>Error loading data. Please try again later.</div>;
+  }
 
-     return (
-          <CardMovie movies={movies} domain={urlImage} totalPages={totalPages} slug={slug} page={page} baseUrl={baseUrl}/>
-     );
-}
+  const {
+    items: movies = [],
+    APP_DOMAIN_CDN_IMAGE: urlImage = "",
+    breadCrumb = [],
+    params: { pagination: { totalPages = 1 } = {} } = {},
+  } = data;
 
-export default TheLoai
+  const baseUrl = breadCrumb?.[0]?.slug || "/";
+
+  return (
+    <>
+      <BreadCrumb breadCrumbs={breadCrumb} />
+      <CardMovie
+        movies={movies}
+        domain={urlImage}
+        totalPages={totalPages}
+        slug={slug}
+        page={page}
+        baseUrl={baseUrl}
+      />
+    </>
+  );
+};
+
+export default TheLoai;

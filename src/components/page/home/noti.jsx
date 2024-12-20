@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Button, Modal } from "antd";
-
+import Image from "next/image";
 const Noti = () => {
   const [isModalOpen, setIsModalOpen] = useState(true);
   const showModal = () => {
@@ -23,13 +23,16 @@ const Noti = () => {
         onCancel={handleCancel}
       >
         <div className="text-center">
-          <div className="w-100">
-            <img
-              src="/img/PAY.png"
-              alt="banner - vudevweb.com"
-              className="rounded"
-              width="200"
-            />
+          <div className="w-100 d-flex justify-content-center">
+            <div className="img__noti">
+              <Image
+                src="/img/PAY.png"
+                alt="banner - vudevweb.com"
+                className="rounded img__noti--img"
+                fill
+                style={{ objectFit: "cover" }}
+              />
+            </div>
           </div>
           <p className="mt-2">
             👉 Ủng hộ mình kinh phí để duy trì website nhé!

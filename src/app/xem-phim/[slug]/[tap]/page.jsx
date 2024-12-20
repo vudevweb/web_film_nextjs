@@ -3,46 +3,46 @@
 import Link from "next/link";
 import { useState, useEffect, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
-import ReactPlayer from "react-player";
-
 import Comment from "./comment";
-function XemPhim({ params }) {
+
+const XemPhim = ({ params }) => {
   const urlApi = "https://phimapi.com/phim/";
   const searchParams = useSearchParams();
-  const tap = params.tap;
-  const server = searchParams.get("server");
-  const [slug, setSlug] = useState(params.slug);
-  const [movie, setMovie] = useState([]);
+  const serverIndex = parseInt(searchParams.get("server")) || 0;
+  const tapSlug = params.tap;
+
+  const [slug] = useState(params.slug);
+  const [movie, setMovie] = useState({});
   const [episodes, setEpisodes] = useState([]);
-  const [currentTap, setCurrentTap] = useState(null);
-  const [tapPhim, setTapPhim] = useState(null);
+  const [currentEpisode, setCurrentEpisode] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const getMovie = useCallback(async () => {
     try {
       const res = await fetch(`${urlApi}${slug}`);
+      if (!res.ok) throw new Error("Failed to fetch movie data");
       const data = await res.json();
-      setMovie(data.movie);
-      setEpisodes(data.episodes);
-      // const episode = data.episodes.find(item => item[server] === server);
-      const episode = data.episodes[0];
-      if (episode) {
-        const foundTap = episode.server_data.find((item) => item.slug === tap);
-        if (foundTap) {
-          setCurrentTap(foundTap.name);
-          setTapPhim(foundTap);
-        }
-      }
+
+      const movieData = data.movie || {};
+      const episodesData = data.episodes || [];
+      const currentServer = episodesData[serverIndex];
+      const foundEpisode = currentServer?.server_data?.find(
+        (item) => item.slug === tapSlug
+      );
+
+      setMovie(movieData);
+      setEpisodes(episodesData);
+      setCurrentEpisode(foundEpisode || null);
     } catch (error) {
-      console.error("Error fetching data: ", error);
+      console.error("Error fetching movie data:", error);
     } finally {
       setLoading(false);
     }
-  }, [slug, tap, server]);
+  }, [slug, tapSlug, serverIndex]);
 
   useEffect(() => {
     getMovie();
-  }, [slug, tap]);
+  }, [getMovie]);
 
   if (loading) {
     return (
@@ -54,61 +54,78 @@ function XemPhim({ params }) {
     );
   }
 
-  return (
+  if (!currentEpisode) {
+    return <div className="text-warning">Tập phim không tồn tại.</div>;
+  }
+
+  const Breadcrumb = () => (
+    <nav aria-label="breadcrumb text-start">
+      <ol className="breadcrumb justify-content-start">
+        <li className="breadcrumb-item">
+          <Link href="/" className="text-warning fw">
+            Trang chủ
+          </Link>
+        </li>
+        <li className="breadcrumb-item">
+          <Link href={`/phim/${movie.slug}`} className="text-warning fw">
+            {movie.name}
+          </Link>
+        </li>
+        <li className="breadcrumb-item active" aria-current="page">
+          {currentEpisode.name}
+        </li>
+      </ol>
+    </nav>
+  );
+
+  const EpisodeList = () => (
     <div>
+      {episodes.map((item, index) => (
+        <div key={index} className="ps-3">
+          <div className="text-warning mb-2">
+            <strong>Server: </strong>
+            {item.server_name}
+          </div>
+          {item.server_data.map((tapVip, i) => (
+            <Link
+              key={i}
+              href={`/xem-phim/${movie.slug}/${tapVip.slug}?server=${index}`}
+              className={`btn btn-secondary btn-sm me-3 mb-3 ${
+                index === serverIndex && tapVip.slug === tapSlug
+                  ? "btn btn-warning"
+                  : ""
+              }`}
+            >
+              {tapVip.name}
+            </Link>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+
+  return (
+    <div style={{ height: "100vh" }}>
       <div className="card">
         <div className="card-header">
-          <nav aria-label="breadcrumb text-start">
-            <ol className="breadcrumb justify-content-start">
-              <li className="breadcrumb-item">
-                <Link href="/" className="text-warning fw">
-                  Trang chủ
-                </Link>
-              </li>
-              <li className="breadcrumb-item">
-                <Link href={`/phim/${movie.slug}`} className="text-warning fw">
-                  {movie.name}
-                </Link>
-              </li>
-              <li className="breadcrumb-item active" aria-current="page">
-                {currentTap}
-              </li>
-            </ol>
-          </nav>
+          <Breadcrumb />
         </div>
         <div className="card-body">
           <div className="mb-4">
             <div className="text-warning fw mb-2">
               <strong>
                 <i className="fe fe-hash"></i>
-                {currentTap}
+                {currentEpisode.name}
               </strong>
             </div>
             <div>
-              {/* <ReactPlayer
-                                        url={tapPhim.link_m3u8}
-                                        width="100%" height="500px" 
-                                        autoPlay={true} controls={true}
-                                        preload="auto" playsinline={true} pip={true} 
-                                        light={tapPhim.poster_url}
-                                        onError={(e) => alert('Lỗi tải video! Xin lỗi bạn!', e)}
-                                        config={{
-                                             file: {
-                                                  attributes: {
-                                                       controlsList: 'nodownload', 
-                                                  },
-                                             },
-                                             localStorage: true,
-                                        }}
-
-                                   /> */}
               <iframe
                 className="video-iframe rounded"
-                title={tapPhim.filename}
-                src={tapPhim.link_embed}
+                title={currentEpisode.filename || "Video"}
+                src={currentEpisode.link_embed}
                 width="100%"
-                height="100%"
-                frameborder="0"
+                height="500px"
+                frameBorder="0"
                 allowFullScreen
               ></iframe>
             </div>
@@ -122,30 +139,7 @@ function XemPhim({ params }) {
                 <i className="fe fe-hash"></i>Các tập phim
               </strong>
             </div>
-            <div>
-              {episodes.map((item, index) => (
-                <div key={index} className="ps-3">
-                  <div className="text-warning mb-2">
-                    {" "}
-                    <strong>Server: </strong>
-                    {item.server_name}
-                  </div>
-                  {item.server_data.map((tapVip, i) => (
-                    <Link
-                      key={i}
-                      href={`/xem-phim/${movie.slug}/${tapVip.slug}?server=${index}`}
-                      className={`btn btn-secondary btn-sm me-3 mb-3 ${
-                        index == server && tapVip.slug === tap
-                          ? "btn btn-warning"
-                          : ""
-                      }`}
-                    >
-                      {tapVip.name}
-                    </Link>
-                  ))}
-                </div>
-              ))}
-            </div>
+            <EpisodeList />
           </div>
 
           <hr />
@@ -162,6 +156,6 @@ function XemPhim({ params }) {
       </div>
     </div>
   );
-}
+};
 
 export default XemPhim;

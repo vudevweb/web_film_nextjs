@@ -1,59 +1,61 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import style from "./header.module.css";
-import { useState, useEffect } from "react";
 
 const AppHeader = () => {
-  // const navLink = document.querySelectorAll(".nav-link-vd");
-  // navLink.forEach((link) => {
-  //   if (link.attributes.href.value === window.location.pathname) {
-  //     link.classList.add("active");
-  //   }
-  // });
+  useEffect(() => {
+    let lastScrollTop = 0;
+    const handleScroll = () => {
+      const scrollTop =
+        window.pageYOffset || document.documentElement.scrollTop;
+      const navbar = document.querySelector(".navbar");
 
-  // kiểm tra sự kiện khi người dùng cuộng trang thì header sẽ biến mất
-  let lastScrollTop = 0;
-  window.addEventListener("scroll", () => {
-    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    if (scrollTop > lastScrollTop) {
-      document.querySelector(".navbar").style.top = "-100px";
-    } else if (scrollTop < 20) {
-      document.querySelector(".navbar").style.top = "0";
-    }
-    lastScrollTop = scrollTop;
-  });
+      if (navbar) {
+        navbar.style.top =
+          scrollTop > lastScrollTop
+            ? "-100px"
+            : scrollTop < 20
+            ? "0"
+            : navbar.style.top;
+      }
+
+      lastScrollTop = scrollTop;
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const API_THE_LOAI = process.env.API_THE_LOAI;
   const API_QUOC_GIA = process.env.API_QUOC_GIA;
-  const API_NAM_PHAT_HANH = process.env.API_NAM_PHAT_HANH;
 
   const [theLoai, setTheLoai] = useState([]);
   const [quocGia, setQuocGia] = useState([]);
-  const [namPhatHanh, setNamPhatHanh] = useState([]);
+  const [namPhatHanh, setNamPhatHanh] = useState(() => {
+    const years = [];
+    for (let i = 2024; i >= 1990; i--) {
+      years.push({ name: i, slug: i });
+    }
+    return years;
+  });
 
   useEffect(() => {
-    const getTheLoai = async () => {
-      const res = await fetch(API_THE_LOAI);
-      const data = await res.json();
-      setTheLoai(data);
-    };
+    const fetchData = async () => {
+      try {
+        const [theLoaiRes, quocGiaRes] = await Promise.all([
+          fetch(API_THE_LOAI).then((res) => res.json()),
+          fetch(API_QUOC_GIA).then((res) => res.json()),
+        ]);
 
-    const getQuocGia = async () => {
-      const res = await fetch(API_QUOC_GIA);
-      const data = await res.json();
-      setQuocGia(data);
-    };
-
-    const getNamPhatHanh = async () => {
-      for (let i = 2024; i >= 1990; i--) {
-        setNamPhatHanh((prev) => [...prev, { name: i, slug: i }]);
+        setTheLoai(theLoaiRes);
+        setQuocGia(quocGiaRes);
+      } catch (error) {
+        console.error("Error fetching data:", error);
       }
     };
-    getQuocGia();
-    getNamPhatHanh();
-    getTheLoai();
-  }, []);
+
+    fetchData();
+  }, [API_THE_LOAI, API_QUOC_GIA]);
 
   return (
     <nav

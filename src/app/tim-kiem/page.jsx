@@ -1,16 +1,16 @@
 "use client";
 import Movie from "@/components/template/movie";
 import { useState, useEffect } from "react";
-import { Pagination } from "antd";
+
 const Page = () => {
   const [movies, setMovies] = useState([]);
+  const [displayedMovies, setDisplayedMovies] = useState([]);
   const [img, setImg] = useState("");
   const [keyword, setKeyword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
   const [alert, setAlert] = useState("");
-  const [domain_img, setDomain_img] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const ITEMS_PER_PAGE = 12;
 
   useEffect(() => {
     if (keyword.trim()) {
@@ -20,6 +20,7 @@ const Page = () => {
       return () => clearTimeout(timer);
     } else {
       setMovies([]);
+      setDisplayedMovies([]);
       setAlert("");
     }
   }, [keyword]);
@@ -33,11 +34,12 @@ const Page = () => {
 
       if (searchResults.data.items.length > 0) {
         setMovies(searchResults.data.items);
-        setImg(searchResults.data.APP_DOMAIN_CDN_IMAGE);        
-        // setTotalPages(searchResults.paginate.total_page);
+        setDisplayedMovies(searchResults.data.items.slice(0, ITEMS_PER_PAGE));
+        setImg(searchResults.data.APP_DOMAIN_CDN_IMAGE);
         setAlert("");
       } else {
         setMovies([]);
+        setDisplayedMovies([]);
         setAlert("Không tìm thấy phim");
       }
     } catch (error) {
@@ -47,24 +49,28 @@ const Page = () => {
     }
   };
 
-  const HandleSearch = (e) => {
+  const handleSearchChange = (e) => {
     setKeyword(e.target.value);
   };
 
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-    search(keyword);
+  const handleLoadMore = () => {
+    const nextPage = currentPage + 1;
+    const startIndex = nextPage * ITEMS_PER_PAGE - ITEMS_PER_PAGE;
+    const nextMovies = movies.slice(0, startIndex + ITEMS_PER_PAGE);
+
+    setDisplayedMovies(nextMovies);
+    setCurrentPage(nextPage);
   };
 
   return (
-    <div>
+    <div style={{ height: "100vh" }}>
       <div className="mb-5">
-        <h3 className="text-warning">Nội dung tìm kiếm: {keyword}</h3>
+        <h3 className="text-warning">Nội dung tìm kiếm &quot;{keyword}&quot;</h3>
       </div>
       <div className="mb-5">
         <input
           type="search"
-          onChange={HandleSearch}
+          onChange={handleSearchChange}
           style={{
             borderRadius: "20px",
             padding: "20px 20px",
@@ -75,7 +81,7 @@ const Page = () => {
       </div>
 
       {loading ? (
-        <div className="text-center">
+        <div className="text-center py-10">
           <div className="spinner-border text-warning" role="status">
             <span className="visually-hidden">Loading...</span>
           </div>
@@ -83,20 +89,25 @@ const Page = () => {
       ) : alert ? (
         <div className="text-center text-warning">{alert}</div>
       ) : (
-        <Movie movies={movies} domain={img} />
-      )}
-
-      {/* {totalPages > 1 && (
-        <div className="mt-5 text-center">
-          <Pagination
-            style={{ color: "white" }}
-            defaultCurrent={currentPage}
-            total={totalPages}
-            current={currentPage}
-            onChange={handlePageChange}
-          />
+        <div className="">
+          <Movie movies={displayedMovies} domain={img} />
+          {displayedMovies.length < movies.length && (
+            <div className="text-center mt-5">
+              <button
+                onClick={handleLoadMore}
+                className="btn btn-warning"
+                style={{
+                  borderRadius: "20px",
+                  padding: "10px 20px",
+                  fontSize: "16px",
+                }}
+              >
+                Xem thêm
+              </button>
+            </div>
+          )}
         </div>
-      )} */}
+      )}
     </div>
   );
 };
