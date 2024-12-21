@@ -12,10 +12,10 @@ function Movie({ movies, domain }) {
         {movies.map((movie, index) => (
           <div key={index} className="col-6 col-sm-4 col-lg-3 col-xl-2">
             <div
-              className="card text-center bg-none mt-1"
+              className="card card_movie text-center bg-none mt-1"
               // style={{ padding: 10 }}
             >
-              <a href={`/phim/${movie.slug}`} className="card__cover">
+              <Link href={`/phim/${movie.slug}`} className="card__cover">
                 <Image
                   loading="lazy"
                   src={
@@ -49,9 +49,9 @@ function Movie({ movies, domain }) {
                     strokeLinejoin="round"
                   />
                 </svg>
-              </a>
+              </Link>
               <h3 className="card__title">
-                <a href={`/phim/${movie.slug}`}>{movie.name}</a>
+                <Link href={`/phim/${movie.slug}`}>{movie.name}</Link>
               </h3>
             </div>
           </div>

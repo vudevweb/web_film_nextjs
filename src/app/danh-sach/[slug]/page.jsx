@@ -1,9 +1,22 @@
 import CardMovie from "@/components/template/CardMovie";
 import BreadCrumb from "@/components/template/BreadCrumb";
-import SEO from "@/components/template/SEO";
+
+export async function generateMetadata({ params }) {
+  const api = process.env.API_DANH_SACH;
+  const post = await fetch(`${api}/${params.slug}`);
+  const data = await post.json();
+  const seoOnPage = data.data.seoOnPage;
+  return {
+    title: seoOnPage.titleHead,
+    description: seoOnPage.descriptionHead,
+    og_type: seoOnPage.og_type,
+    og_image: seoOnPage.og_image[0],
+    og_url: seoOnPage.og_url,
+  };
+}
+
 const fetchMoviesByCategory = async (slug, page) => {
-  const api =
-    process.env.API_DANH_MUC || "https://phimapi.com/v1/api/danh-sach/";
+  const api = process.env.API_DANH_SACH;
   if (!slug) {
     console.error("Slug is not provided.");
     return null;
@@ -39,7 +52,6 @@ const DanhMuc = async ({ params, searchParams }) => {
 
   return (
     <>
-      <SEO {...seoOnPage} />
       <BreadCrumb breadCrumbs={breadCrumb} />
       <CardMovie
         movies={movies || []}

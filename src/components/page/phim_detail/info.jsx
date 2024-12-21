@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 // "use client";
 import Image from "next/image";
+import Link from "next/link";
 const Info = ({ data }) => {
   if (!data || !data.movie) {
     return <div>Error loading movie details.</div>;
@@ -71,13 +72,13 @@ const Info = ({ data }) => {
       {episodes.map((episode, index) => (
         <div key={index} className="text-center mt-3">
           {episode.server_data.slice(0, 1).map((ep, i) => (
-            <a
+            <Link
               key={i}
               href={`/xem-phim/${movie.slug}/${ep.slug}?server=${index}`}
               className="btn btn-warning me-3"
             >
               Xem ngay
-            </a>
+            </Link>
           ))}
           {trailer_url && (
             <a
@@ -131,13 +132,13 @@ const Info = ({ data }) => {
                 {episode.server_name}
               </div>
               {episode.server_data.map((ep, i) => (
-                <a
+                <Link
                   key={i}
                   href={`/xem-phim/${movie.slug}/${ep.slug}?server=${index}`}
                   className="btn btn-secondary btn-sm mt-2 me-2"
                 >
                   {ep.name}
-                </a>
+                </Link>
               ))}
             </div>
           ))}

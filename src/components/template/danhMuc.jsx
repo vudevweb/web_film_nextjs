@@ -39,7 +39,7 @@ function DanhMucPhim({ movies = [], categoryTitle = "", domain = "" }) {
         className="card card_movie text-center bg-none mt-1"
         style={{ padding: 10 }}
       >
-        <a href={`/phim/${slug}`} className="card__cover">
+        <Link href={`/phim/${slug}`} className="card__cover">
           {/* <img loading="lazy" src={posterUrl} alt={name} height={280} /> */}
           <Image
             loading="lazy"
@@ -72,9 +72,9 @@ function DanhMucPhim({ movies = [], categoryTitle = "", domain = "" }) {
               strokeLinejoin="round"
             />
           </svg>
-        </a>
+        </Link>
         <h3 className="card__title">
-          <a href={`/phim/${slug}`}>{name}</a>
+          <Link href={`/phim/${slug}`}>{name}</Link>
         </h3>
         <ul className="card__list">
           <li>{lang}</li>

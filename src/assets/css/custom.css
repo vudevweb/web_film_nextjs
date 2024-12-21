@@ -10,11 +10,15 @@
   height: 265px;
 }
 
-/* .footer__custom {
-  position: relative;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: #0f172a;
-  z-index: 1000;
-} */
+/* hiệu úng xuất hiện */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.card_movie {
+  animation: fadeIn 1s ease-in-out;
+}

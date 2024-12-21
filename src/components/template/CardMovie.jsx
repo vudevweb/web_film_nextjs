@@ -13,7 +13,7 @@ const MovieCard = React.memo(({ movie, domain }) => {
   return (
     <div className="col-6 col-sm-4 col-lg-3 col-xl-2 mb-3">
       <div className="card card_movie text-center bg-none mt-1">
-        <a href={`/phim/${slug}`} className="card__cover">
+        <Link href={`/phim/${slug}`} className="card__cover">
           <div className="">
             <Image
               loading="lazy"
@@ -47,9 +47,9 @@ const MovieCard = React.memo(({ movie, domain }) => {
               strokeLinejoin="round"
             />
           </svg>
-        </a>
+        </Link>
         <h3 className="card__title">
-          <a href={`/phim/${slug}`}>{name}</a>
+          <Link href={`/phim/${slug}`}>{name}</Link>
         </h3>
       </div>
     </div>

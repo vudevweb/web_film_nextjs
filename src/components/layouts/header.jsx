@@ -77,9 +77,13 @@ const AppHeader = () => {
       style={{ transition: "0.3s ease-in-out" }}
     >
       <div className="container">
-        <a className="navbar-brand me-auto text-warning fw" href="/">
+        <Link
+          onClick={() => setCurrentPath("/")}
+          className="navbar-brand me-auto text-warning fw"
+          href="/"
+        >
           VUDO
-        </a>
+        </Link>
         <div
           className="offcanvas offcanvas-end"
           tabIndex={-1}
@@ -87,14 +91,14 @@ const AppHeader = () => {
           aria-labelledby="offcanvasNavbarLabel"
         >
           <div className="offcanvas-header">
-            <a href="/">
+            <Link onClick={() => setCurrentPath("/")} href="/">
               <h5
                 className="offcanvas-title text-warning fw"
                 id="offcanvasNavbarLabel"
               >
                 VUDO
               </h5>
-            </a>
+            </Link>
 
             <button
               type="button"
@@ -107,7 +111,8 @@ const AppHeader = () => {
             <ul className="navbar-nav justify-content-center flex-grow-1 pe-3">
               {dataRoute.map((item, index) => (
                 <li className="nav-item" key={index}>
-                  <a
+                  <Link
+                    onClick={() => setCurrentPath(item.path)}
                     className={
                       "nav-link nav-link-vd mx-lg-2 fw " +
                       (currentPath === item.path ? "active" : "")
@@ -116,7 +121,7 @@ const AppHeader = () => {
                     href={item.path}
                   >
                     {item.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
 
@@ -133,12 +138,12 @@ const AppHeader = () => {
                 <ul className="dropdown-menu menu_vd">
                   {theLoai.map((item, index) => (
                     <li key={index}>
-                      <a
+                      <Link
                         className="dropdown-item"
                         href={`/the-loai/${item.slug}`}
                       >
                         {item.name}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -156,12 +161,12 @@ const AppHeader = () => {
                 <ul className="dropdown-menu menu_vd">
                   {quocGia.map((item, index) => (
                     <li key={index}>
-                      <a
+                      <Link
                         className="dropdown-item"
                         href={`/quoc-gia/${item.slug}`}
                       >
                         {item.name}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -179,12 +184,12 @@ const AppHeader = () => {
                 <ul className="dropdown-menu menu_vd">
                   {namPhatHanh.map((item, index) => (
                     <li key={index}>
-                      <a
+                      <Link
                         className="dropdown-item"
                         href={`/nam-phat-hanh/${item.slug}`}
                       >
                         {item.name}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -194,7 +199,14 @@ const AppHeader = () => {
         </div>
 
         <div className="d-flex align-items-center">
-          <Link href="/tim-kiem" className="ms-2 me-md-4 text-dark">
+          <Link
+            onClick={() => setCurrentPath("/tim-kiem")}
+            href="/tim-kiem"
+            className={
+              `ms-2 me-md-4 ` +
+              (currentPath === "/tim-kiem" ? "text-warning" : "text-dark")
+            }
+          >
             <i className="fe fe-search fs-3" />
           </Link>
         </div>

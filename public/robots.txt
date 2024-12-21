@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://vudo.id.vn
+
+# Sitemaps
+Sitemap: https://vudo.id.vn/sitemap.xml
