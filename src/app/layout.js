@@ -32,8 +32,6 @@ export default function RootLayout({ children }) {
             <AppSearch />
             {children}
           </main>
-          {/* nếu route "xem-phim/{slug}" thì không nhúng footer */}
-
           <AppFooter />
         </Suspense>
 

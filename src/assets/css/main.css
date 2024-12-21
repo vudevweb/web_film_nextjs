@@ -1730,11 +1730,12 @@ body::-webkit-scrollbar-thumb {
   color: #e0e0e0;
   text-transform: uppercase;
   font-weight: 500;
+  border:1px solid #f59e0b !important;
 }
 
 .catalog__more:hover {
   color: #fff;
-  background-color: #2f80ed;
+  background-color: #f59e0b;
 }
 
 .catalog__paginator-wrap {
@@ -3045,7 +3046,7 @@ body::-webkit-scrollbar-thumb {
 
 .category__title {
   font-family: "Rubik", sans-serif;
-  font-size: 18px;
+  font-size: 14px;
   line-height: 28px;
   font-weight: 400;
   color: #e0e0e0;

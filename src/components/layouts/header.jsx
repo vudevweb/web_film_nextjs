@@ -1,9 +1,9 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import style from "./header.module.css";
 
 const AppHeader = () => {
+  const [currentPath, setCurrentPath] = useState("");
   useEffect(() => {
     let lastScrollTop = 0;
     const handleScroll = () => {
@@ -23,6 +23,7 @@ const AppHeader = () => {
       lastScrollTop = scrollTop;
     };
     window.addEventListener("scroll", handleScroll);
+    setCurrentPath(window.location.pathname);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -46,16 +47,29 @@ const AppHeader = () => {
           fetch(API_THE_LOAI).then((res) => res.json()),
           fetch(API_QUOC_GIA).then((res) => res.json()),
         ]);
-
+        localStorage.setItem("theLoai", JSON.stringify(theLoaiRes));
+        localStorage.setItem("quocGia", JSON.stringify(quocGiaRes));
         setTheLoai(theLoaiRes);
         setQuocGia(quocGiaRes);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
-
-    fetchData();
+    if (localStorage.getItem("theLoai") && localStorage.getItem("quocGia")) {
+      setTheLoai(JSON.parse(localStorage.getItem("theLoai")));
+      setQuocGia(JSON.parse(localStorage.getItem("quocGia")));
+    } else {
+      fetchData();
+    }
   }, [API_THE_LOAI, API_QUOC_GIA]);
+
+  const dataRoute = [
+    { name: "Phim mới cập nhật", path: "/phim-moi-cap-nhat" },
+    { name: "Phim lẻ", path: "/danh-sach/phim-le" },
+    { name: "Phim bộ", path: "/danh-sach/phim-bo" },
+    { name: "Hoạt hình", path: "/danh-sach/hoat-hinh" },
+    { name: "TV Show", path: "/danh-sach/tv-shows" },
+  ];
 
   return (
     <nav
@@ -63,9 +77,9 @@ const AppHeader = () => {
       style={{ transition: "0.3s ease-in-out" }}
     >
       <div className="container">
-        <Link className="navbar-brand me-auto text-warning fw" href="/">
+        <a className="navbar-brand me-auto text-warning fw" href="/">
           VUDO
-        </Link>
+        </a>
         <div
           className="offcanvas offcanvas-end"
           tabIndex={-1}
@@ -73,12 +87,15 @@ const AppHeader = () => {
           aria-labelledby="offcanvasNavbarLabel"
         >
           <div className="offcanvas-header">
-            <h5
-              className="offcanvas-title text-warning fw"
-              id="offcanvasNavbarLabel"
-            >
-              Vudo
-            </h5>
+            <a href="/">
+              <h5
+                className="offcanvas-title text-warning fw"
+                id="offcanvasNavbarLabel"
+              >
+                VUDO
+              </h5>
+            </a>
+
             <button
               type="button"
               className="btn-close"
@@ -88,50 +105,21 @@ const AppHeader = () => {
           </div>
           <div className="offcanvas-body">
             <ul className="navbar-nav justify-content-center flex-grow-1 pe-3">
-              <li className="nav-item ">
-                <Link
-                  className={`nav-link nav-link-vd mx-lg-2 fw`}
-                  aria-current="page"
-                  href="/"
-                >
-                  Trang chủ
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  className="nav-link nav-link-vd  mx-lg-2"
-                  href="/danh-sach/phim-le"
-                >
-                  Phim Lẻ
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  className="nav-link nav-link-vd mx-lg-2"
-                  href="/danh-sach/phim-bo"
-                >
-                  Phim bộ
-                </Link>
-              </li>
-              {/* <li className="nav-item">
-                                        <Link className="nav-link nav-link-vd mx-lg-2" href="/danh-muc/phim-dang-chieu">Phim đang chiếu</Link>
-                                   </li> */}
-              <li className="nav-item">
-                <Link
-                  className="nav-link nav-link-vd mx-lg-2"
-                  href="/danh-sach/hoat-hinh"
-                >
-                  Hoạt hình
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  className="nav-link nav-link-vd mx-lg-2"
-                  href="/danh-sach/tv-shows"
-                >
-                  TV Show
-                </Link>
-              </li>
+              {dataRoute.map((item, index) => (
+                <li className="nav-item" key={index}>
+                  <a
+                    className={
+                      "nav-link nav-link-vd mx-lg-2 fw " +
+                      (currentPath === item.path ? "active" : "")
+                    }
+                    aria-current="page"
+                    href={item.path}
+                  >
+                    {item.name}
+                  </a>
+                </li>
+              ))}
+
               <li className="nav-item dropdown">
                 <Link
                   className="nav-link mx-lg-2 dropdown-toggle"
@@ -145,12 +133,12 @@ const AppHeader = () => {
                 <ul className="dropdown-menu menu_vd">
                   {theLoai.map((item, index) => (
                     <li key={index}>
-                      <Link
+                      <a
                         className="dropdown-item"
                         href={`/the-loai/${item.slug}`}
                       >
                         {item.name}
-                      </Link>
+                      </a>
                     </li>
                   ))}
                 </ul>
@@ -168,12 +156,12 @@ const AppHeader = () => {
                 <ul className="dropdown-menu menu_vd">
                   {quocGia.map((item, index) => (
                     <li key={index}>
-                      <Link
+                      <a
                         className="dropdown-item"
                         href={`/quoc-gia/${item.slug}`}
                       >
                         {item.name}
-                      </Link>
+                      </a>
                     </li>
                   ))}
                 </ul>
@@ -191,12 +179,12 @@ const AppHeader = () => {
                 <ul className="dropdown-menu menu_vd">
                   {namPhatHanh.map((item, index) => (
                     <li key={index}>
-                      <Link
+                      <a
                         className="dropdown-item"
                         href={`/nam-phat-hanh/${item.slug}`}
                       >
                         {item.name}
-                      </Link>
+                      </a>
                     </li>
                   ))}
                 </ul>

@@ -1,5 +1,6 @@
 import CardMovie from "@/components/template/CardMovie";
 import BreadCrumb from "@/components/template/BreadCrumb";
+import SEO from "@/components/template/SEO";
 
 const fetchMoviesByGenre = async (api, slug, page) => {
   try {
@@ -18,7 +19,7 @@ const TheLoai = async ({ params, searchParams }) => {
   const page = searchParams.page || 1;
 
   const data = await fetchMoviesByGenre(api, slug, page);
-  if (!data) return <div>Error loading data. Please try again later.</div>; // Xử lý fallback nếu API lỗi
+  if (!data) return <div>Error loading data. Please try again later.</div>;
 
   const {
     items: movies,
@@ -29,9 +30,10 @@ const TheLoai = async ({ params, searchParams }) => {
   } = data.data;
   const { totalPages } = paginationParams.pagination || {};
   const baseUrl = breadCrumb?.[0]?.slug || "/";
-
+  
   return (
     <>
+      <SEO {...seoOnPage} />
       <BreadCrumb breadCrumbs={breadCrumb} />
       <CardMovie
         movies={movies || []}

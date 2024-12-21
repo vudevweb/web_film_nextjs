@@ -97,12 +97,12 @@ const Page = () => {
             <div className="text-center my-5">
               <button
                 onClick={handleLoadMore}
-                className="btn btn-warning"
-                style={{
-                  borderRadius: "20px",
-                  padding: "10px 20px",
-                  fontSize: "16px",
-                }}
+                className="catalog__more"
+                // style={{
+                //   borderRadius: "20px",
+                //   padding: "10px 20px",
+                //   fontSize: "16px",
+                // }}
               >
                 Xem thêm
               </button>

@@ -1,9 +1,9 @@
 import CardMovie from "@/components/template/CardMovie";
 import BreadCrumb from "@/components/template/BreadCrumb";
+import SEO from "@/components/template/SEO";
 const fetchMoviesByCategory = async (slug, page) => {
   const api =
     process.env.API_DANH_MUC || "https://phimapi.com/v1/api/danh-sach/";
-
   if (!slug) {
     console.error("Slug is not provided.");
     return null;
@@ -32,13 +32,14 @@ const DanhMuc = async ({ params, searchParams }) => {
     items: movies = [],
     APP_DOMAIN_CDN_IMAGE: urlImage = "",
     breadCrumb = [],
+    seoOnPage,
     params: { pagination: { totalPages = 1 } = {} } = {},
   } = data;
-
   const baseUrl = breadCrumb?.[0]?.slug || "/";
 
   return (
     <>
+      <SEO {...seoOnPage} />
       <BreadCrumb breadCrumbs={breadCrumb} />
       <CardMovie
         movies={movies || []}

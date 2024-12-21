@@ -15,7 +15,7 @@ function Movie({ movies, domain }) {
               className="card text-center bg-none mt-1"
               // style={{ padding: 10 }}
             >
-              <Link href={`/phim/${movie.slug}`} className="card__cover">
+              <a href={`/phim/${movie.slug}`} className="card__cover">
                 <Image
                   loading="lazy"
                   src={
@@ -49,9 +49,9 @@ function Movie({ movies, domain }) {
                     strokeLinejoin="round"
                   />
                 </svg>
-              </Link>
+              </a>
               <h3 className="card__title">
-                <Link href={`/phim/${movie.slug}`}>{movie.name}</Link>
+                <a href={`/phim/${movie.slug}`}>{movie.name}</a>
               </h3>
             </div>
           </div>

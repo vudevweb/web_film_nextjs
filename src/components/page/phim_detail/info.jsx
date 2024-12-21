@@ -1,7 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-"use client";
-
-import Link from "next/link";
+// "use client";
 import Image from "next/image";
 const Info = ({ data }) => {
   if (!data || !data.movie) {
@@ -10,89 +8,60 @@ const Info = ({ data }) => {
 
   const { movie, episodes } = data;
   const {
-    name,
-    origin_name,
-    content,
-    poster_url,
-    trailer_url,
-    time,
-    episode_current,
-    episode_total,
-    quality,
-    lang,
-    created,
+    name = "Đang cập nhật",
+    origin_name = "Đang cập nhật",
+    content = "Đang cập nhật",
+    poster_url = "",
+    trailer_url = "",
+    time = "Đang cập nhật",
+    episode_current = "Đang cập nhật",
+    episode_total = "Đang cập nhật",
+    quality = "Đang cập nhật",
+    lang = "Đang cập nhật",
+    created = { time: null },
     director = ["Đang cập nhật"],
-    actor = [],
-    year,
+    actor = ["Đang cập nhật"],
+    year = "Đang cập nhật",
   } = movie;
 
   const MovieInfo = () => (
     <div className="row p-3">
       <ul className="text-warning col-12 col-md-6">
-        <li>
-          <p>
-            <strong>Tên phim: </strong>
-            {name || "N/A"}
-          </p>
-        </li>
-        <li>
-          <p>
-            <strong>Tên chính thức: </strong>
-            {origin_name || "N/A"}
-          </p>
-        </li>
-        <li>
-          <p>
-            <strong>Trạng thái: </strong>
-            {episode_current || "N/A"}
-          </p>
-        </li>
-        <li>
-          <p>
-            <strong>Tổng số tập: </strong>
-            {episode_total || "N/A"}
-          </p>
-        </li>
-        <li>
-          <p>
-            <strong>Chất lượng: </strong>
-            {quality || "N/A"}
-          </p>
-        </li>
+        {[
+          { label: "Tên phim", value: name },
+          { label: "Tên chính thức", value: origin_name },
+          { label: "Trạng thái", value: episode_current },
+          { label: "Tổng số tập", value: episode_total },
+          { label: "Chất lượng", value: quality },
+        ].map(({ label, value }) => (
+          <li key={label}>
+            <p>
+              <strong>{label}: </strong>
+              {value}
+            </p>
+          </li>
+        ))}
       </ul>
       <ul className="text-warning col-12 col-md-6">
-        <li>
-          <p>
-            <strong>Ngôn ngữ: </strong>
-            {lang || "N/A"}
-          </p>
-        </li>
-        <li>
-          <p>
-            <strong>Đạo diễn: </strong>
-            {director.join(", ") || "N/A"}
-          </p>
-        </li>
-        <li>
-          <p>
-            <strong>Diễn viên: </strong>
-            {actor.join(", ") || "N/A"}
-          </p>
-        </li>
-        <li>
-          <p>
-            <strong>Thời lượng: </strong>
-            {time || "N/A"}
-          </p>
-        </li>
-        <li>
-          <p>
-            <strong>Ngày tạo: </strong>
-            {created?.time
+        {[
+          { label: "Ngôn ngữ", value: lang },
+          { label: "Đạo diễn", value: director.join(", ") },
+          { label: "Diễn viên", value: actor.join(", ") || "N/A" },
+          { label: "Thời lượng", value: time },
+          {
+            label: "Ngày tạo",
+            value: created?.time
               ? new Date(created.time).toLocaleDateString()
-              : "N/A"}
-          </p>
-        </li>
+              : "N/A",
+          },
+        ].map(({ label, value }) => (
+          <li key={label}>
+            <p>
+              <strong>{label}: </strong>
+              {value}
+            </p>
+          </li>
+        ))}
       </ul>
     </div>
   );
@@ -102,13 +71,13 @@ const Info = ({ data }) => {
       {episodes.map((episode, index) => (
         <div key={index} className="text-center mt-3">
           {episode.server_data.slice(0, 1).map((ep, i) => (
-            <Link
+            <a
               key={i}
               href={`/xem-phim/${movie.slug}/${ep.slug}?server=${index}`}
               className="btn btn-warning me-3"
             >
               Xem ngay
-            </Link>
+            </a>
           ))}
           {trailer_url && (
             <a
@@ -162,13 +131,13 @@ const Info = ({ data }) => {
                 {episode.server_name}
               </div>
               {episode.server_data.map((ep, i) => (
-                <Link
+                <a
                   key={i}
                   href={`/xem-phim/${movie.slug}/${ep.slug}?server=${index}`}
                   className="btn btn-secondary btn-sm mt-2 me-2"
                 >
                   {ep.name}
-                </Link>
+                </a>
               ))}
             </div>
           ))}

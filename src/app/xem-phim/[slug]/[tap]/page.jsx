@@ -10,29 +10,32 @@ const XemPhim = ({ params }) => {
   const searchParams = useSearchParams();
   const serverIndex = parseInt(searchParams.get("server")) || 0;
   const tapSlug = params.tap;
+  const slug = params.slug;
 
-  const [slug] = useState(params.slug);
-  const [movie, setMovie] = useState({});
-  const [episodes, setEpisodes] = useState([]);
-  const [currentEpisode, setCurrentEpisode] = useState(null);
+  const [movieData, setMovieData] = useState({
+    movie: {},
+    episodes: [],
+    currentEpisode: null,
+  });
   const [loading, setLoading] = useState(true);
 
-  const getMovie = useCallback(async () => {
+  const getMovieData = useCallback(async () => {
     try {
       const res = await fetch(`${urlApi}${slug}`);
       if (!res.ok) throw new Error("Failed to fetch movie data");
       const data = await res.json();
 
-      const movieData = data.movie || {};
       const episodesData = data.episodes || [];
       const currentServer = episodesData[serverIndex];
       const foundEpisode = currentServer?.server_data?.find(
         (item) => item.slug === tapSlug
       );
 
-      setMovie(movieData);
-      setEpisodes(episodesData);
-      setCurrentEpisode(foundEpisode || null);
+      setMovieData({
+        movie: data.movie || {},
+        episodes: episodesData,
+        currentEpisode: foundEpisode || null,
+      });
     } catch (error) {
       console.error("Error fetching movie data:", error);
     } finally {
@@ -41,8 +44,8 @@ const XemPhim = ({ params }) => {
   }, [slug, tapSlug, serverIndex]);
 
   useEffect(() => {
-    getMovie();
-  }, [getMovie]);
+    getMovieData();
+  }, [getMovieData]);
 
   if (loading) {
     return (
@@ -54,7 +57,7 @@ const XemPhim = ({ params }) => {
     );
   }
 
-  if (!currentEpisode) {
+  if (!movieData.currentEpisode) {
     return <div className="text-warning">Tập phim không tồn tại.</div>;
   }
 
@@ -67,12 +70,15 @@ const XemPhim = ({ params }) => {
           </Link>
         </li>
         <li className="breadcrumb-item">
-          <Link href={`/phim/${movie.slug}`} className="text-warning fw">
-            {movie.name}
+          <Link
+            href={`/phim/${movieData.movie.slug}`}
+            className="text-warning fw"
+          >
+            {movieData.movie.name}
           </Link>
         </li>
         <li className="breadcrumb-item active" aria-current="page">
-          {currentEpisode.name}
+          {movieData.currentEpisode.name}
         </li>
       </ol>
     </nav>
@@ -80,7 +86,7 @@ const XemPhim = ({ params }) => {
 
   const EpisodeList = () => (
     <div>
-      {episodes.map((item, index) => (
+      {movieData.episodes.map((item, index) => (
         <div key={index} className="ps-3">
           <div className="text-warning mb-2">
             <strong>Server: </strong>
@@ -89,10 +95,10 @@ const XemPhim = ({ params }) => {
           {item.server_data.map((tapVip, i) => (
             <Link
               key={i}
-              href={`/xem-phim/${movie.slug}/${tapVip.slug}?server=${index}`}
+              href={`/xem-phim/${movieData.movie.slug}/${tapVip.slug}?server=${index}`}
               className={`btn btn-secondary btn-sm me-3 mb-3 ${
                 index === serverIndex && tapVip.slug === tapSlug
-                  ? "btn btn-warning"
+                  ? "btn-warning"
                   : ""
               }`}
             >
@@ -115,14 +121,14 @@ const XemPhim = ({ params }) => {
             <div className="text-warning fw mb-2">
               <strong>
                 <i className="fe fe-hash"></i>
-                {currentEpisode.name}
+                {movieData.currentEpisode.name}
               </strong>
             </div>
             <div>
               <iframe
                 className="video-iframe rounded"
-                title={currentEpisode.filename || "Video"}
-                src={currentEpisode.link_embed}
+                title={movieData.currentEpisode.filename || "Video"}
+                src={movieData.currentEpisode.link_embed}
                 width="100%"
                 height="500px"
                 frameBorder="0"

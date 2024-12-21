@@ -39,7 +39,7 @@ function DanhMucPhim({ movies = [], categoryTitle = "", domain = "" }) {
         className="card card_movie text-center bg-none mt-1"
         style={{ padding: 10 }}
       >
-        <Link href={`/phim/${slug}`} className="card__cover">
+        <a href={`/phim/${slug}`} className="card__cover">
           {/* <img loading="lazy" src={posterUrl} alt={name} height={280} /> */}
           <Image
             loading="lazy"
@@ -49,7 +49,6 @@ function DanhMucPhim({ movies = [], categoryTitle = "", domain = "" }) {
             height={280}
             placeholder="blur"
             blurDataURL="https://lh5.googleusercontent.com/proxy/CGWXSjMMd2FLW31MkAwyyg6CTEa5JYhkmoqOjQOmJbdrIKICImHlALT85CBWNPzJ5WdaGavA6OBY9SSO7YMWaQ7om0jHPu8"
-            // style={{ objectFit: "cover" }}
           />
           <svg
             width={22}
@@ -73,9 +72,9 @@ function DanhMucPhim({ movies = [], categoryTitle = "", domain = "" }) {
               strokeLinejoin="round"
             />
           </svg>
-        </Link>
+        </a>
         <h3 className="card__title">
-          <Link href={`/phim/${slug}`}>{name}</Link>
+          <a href={`/phim/${slug}`}>{name}</a>
         </h3>
         <ul className="card__list">
           <li>{lang}</li>

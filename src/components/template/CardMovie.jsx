@@ -9,14 +9,15 @@ import Image from "next/image";
 
 const MovieCard = React.memo(({ movie, domain }) => {
   const { slug, poster_url, name } = movie;
+  const image = domain ? `${domain}/${poster_url}` : poster_url;
   return (
     <div className="col-6 col-sm-4 col-lg-3 col-xl-2 mb-3">
       <div className="card card_movie text-center bg-none mt-1">
-        <Link href={`/phim/${slug}`} className="card__cover">
+        <a href={`/phim/${slug}`} className="card__cover">
           <div className="">
             <Image
               loading="lazy"
-              src={`${domain}/${poster_url}`}
+              src={image}
               alt={`Poster of ${name}`}
               width={300}
               height={280}
@@ -46,9 +47,9 @@ const MovieCard = React.memo(({ movie, domain }) => {
               strokeLinejoin="round"
             />
           </svg>
-        </Link>
+        </a>
         <h3 className="card__title">
-          <Link href={`/phim/${slug}`}>{name}</Link>
+          <a href={`/phim/${slug}`}>{name}</a>
         </h3>
       </div>
     </div>
@@ -66,8 +67,7 @@ const CardMovie = ({
 }) => {
   const router = useRouter();
   const [currentPage, setCurrentPage] = React.useState(page);
-  console.log(totalPages);
-  
+
   const handlePageChange = (newPage) => {
     if (newPage === currentPage) return;
     router.push(`${baseUrl}?page=${newPage}`);

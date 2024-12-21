@@ -8,7 +8,8 @@ const nextConfig = {
     API_DANH_MUC: process.env.API_DANH_MUC,
     API_TIM_KIEM: process.env.API_TIM_KIEM,
     API_DANH_SACH: process.env.API_DANH_SACH,
-    APi_NAM_PHAT_HANH: process.env.API_NAM_PHAT_HANH,
+    API_NAM_PHAT_HANH: process.env.API_NAM_PHAT_HANH,
+    API_MOI_CAP_NHAT: process.env.API_MOI_CAP_NHAT,
   },
   images: {
     domains: ["img.phimapi.com", "phimimg.com"],
