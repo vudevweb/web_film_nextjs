@@ -22,3 +22,7 @@
 .card_movie {
   animation: fadeIn 1s ease-in-out;
 }
+
+.fadeIn {
+  animation: fadeIn 1s ease-in-out;
+}

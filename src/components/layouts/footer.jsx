@@ -8,9 +8,13 @@ function AppFooter() {
             className="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1"
           ></a>
           <span className="mb-3 mb-md-0 text-dark fw ">
-            © 2024 code by{" "}
-            <a className="text-warning" href="http://">
-              vudevweb
+            © {new Date().getFullYear()} code by{" "}
+            <a
+              className="text-warning"
+              href="http://facebook.com/vudevweb"
+              target="_blank"
+            >
+              {process.env.BOSS}
             </a>
             , copyright
           </span>
@@ -43,7 +47,6 @@ function AppFooter() {
               <i className="fe fe-instagram"></i>
             </a>
           </li>
-          {/* <li className="ms-3"><a className="text-muted fw text-warning" href="https://github.com/vudevweb" target="_blank" ><i className="fe fe-github"></i></a></li> */}
         </ul>
       </footer>
     </div>
