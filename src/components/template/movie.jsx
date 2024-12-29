@@ -16,7 +16,7 @@ function Movie({ movies, domain }) {
               // style={{ padding: 10 }}
             >
               <Link href={`/phim/${movie.slug}`} className="card__cover">
-                <Image
+                <img
                   loading="lazy"
                   src={
                     domain ? domain + "/" + movie.poster_url : movie.poster_url

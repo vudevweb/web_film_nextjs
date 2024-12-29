@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 
 const BreadCrumb = ({ breadCrumbs = [] }) => {
-  if (!breadCrumbs || breadCrumbs.length === 0) return null; // Không hiển thị nếu không có dữ liệu
+  if (!breadCrumbs || breadCrumbs.length === 0) return null;
 
   return (
     <nav aria-label="breadcrumb mb-3">

@@ -4,6 +4,17 @@ import Link from "next/link";
 
 const AppHeader = () => {
   const [currentPath, setCurrentPath] = useState("");
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
   useEffect(() => {
     let lastScrollTop = 0;
     const handleScroll = () => {
@@ -71,12 +82,42 @@ const AppHeader = () => {
     { name: "TV Show", path: "/danh-sach/tv-shows" },
   ];
 
+  const renderLink = (path, children) => {
+    if (isMobile) {
+      return (
+        <a
+          href={path}
+          onClick={() => setCurrentPath(path)}
+          className={
+            "nav-link nav-link-vd mx-lg-2 fw " +
+            (currentPath === path ? "active" : "")
+          }
+        >
+          {children}
+        </a>
+      );
+    }
+    return (
+      <Link
+        href={path}
+        onClick={() => setCurrentPath(path)}
+        className={
+          "nav-link nav-link-vd mx-lg-2 fw " +
+          (currentPath === path ? "active" : "")
+        }
+      >
+        {children}
+      </Link>
+    );
+  };
+
   return (
     <nav
       className="navbar navbar-expand-lg fixed-top"
       style={{ transition: "0.3s ease-in-out" }}
     >
       <div className="container">
+        {/* {renderLink("/", <span className="navbar-brand me-auto text-warning fw">VUDO</span>)} */}
         <Link
           onClick={() => setCurrentPath("/")}
           className="navbar-brand me-auto text-warning fw"
@@ -91,14 +132,14 @@ const AppHeader = () => {
           aria-labelledby="offcanvasNavbarLabel"
         >
           <div className="offcanvas-header">
-            <Link onClick={() => setCurrentPath("/")} href="/">
+            <a onClick={() => setCurrentPath("/")} href="/">
               <h5
                 className="offcanvas-title text-warning fw"
                 id="offcanvasNavbarLabel"
               >
                 VUDO
               </h5>
-            </Link>
+            </a>
 
             <button
               type="button"
@@ -111,17 +152,7 @@ const AppHeader = () => {
             <ul className="navbar-nav justify-content-center flex-grow-1 pe-3">
               {dataRoute.map((item, index) => (
                 <li className="nav-item" key={index}>
-                  <Link
-                    onClick={() => setCurrentPath(item.path)}
-                    className={
-                      "nav-link nav-link-vd mx-lg-2 fw " +
-                      (currentPath === item.path ? "active" : "")
-                    }
-                    aria-current="page"
-                    href={item.path}
-                  >
-                    {item.name}
-                  </Link>
+                  {renderLink(item.path, item.name)}
                 </li>
               ))}
 
@@ -138,12 +169,21 @@ const AppHeader = () => {
                 <ul className="dropdown-menu menu_vd">
                   {theLoai.map((item, index) => (
                     <li key={index}>
-                      <Link
-                        className="dropdown-item"
-                        href={`/the-loai/${item.slug}`}
-                      >
-                        {item.name}
-                      </Link>
+                      {isMobile ? (
+                        <a
+                          className="dropdown-item"
+                          href={`/the-loai/${item.slug}`}
+                        >
+                          {item.name}
+                        </a>
+                      ) : (
+                        <Link
+                          className="dropdown-item"
+                          href={`/the-loai/${item.slug}`}
+                        >
+                          {item.name}
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>
@@ -161,12 +201,21 @@ const AppHeader = () => {
                 <ul className="dropdown-menu menu_vd">
                   {quocGia.map((item, index) => (
                     <li key={index}>
-                      <Link
-                        className="dropdown-item"
-                        href={`/quoc-gia/${item.slug}`}
-                      >
-                        {item.name}
-                      </Link>
+                      {isMobile ? (
+                        <a
+                          className="dropdown-item"
+                          href={`/the-loai/${item.slug}`}
+                        >
+                          {item.name}
+                        </a>
+                      ) : (
+                        <Link
+                          className="dropdown-item"
+                          href={`/quoc-gia/${item.slug}`}
+                        >
+                          {item.name}
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>
@@ -184,12 +233,21 @@ const AppHeader = () => {
                 <ul className="dropdown-menu menu_vd">
                   {namPhatHanh.map((item, index) => (
                     <li key={index}>
-                      <Link
-                        className="dropdown-item"
-                        href={`/nam-phat-hanh/${item.slug}`}
-                      >
-                        {item.name}
-                      </Link>
+                      {isMobile ? (
+                        <a
+                          className="dropdown-item"
+                          href={`/the-loai/${item.slug}`}
+                        >
+                          {item.name}
+                        </a>
+                      ) : (
+                        <Link
+                          className="dropdown-item"
+                          href={`/nam-phat-hanh/${item.slug}`}
+                        >
+                          {item.name}
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>

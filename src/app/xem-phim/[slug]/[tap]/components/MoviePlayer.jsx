@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
+import ReactPlayer from "react-player";
 import Comment from "./comment";
 const VideoPlayer = ({ episode }) => {
   if (!episode) {
@@ -20,6 +21,7 @@ const VideoPlayer = ({ episode }) => {
           {episode.name}
         </strong>
       </div>
+      {/* <ReactPlayer url={episode.link_m3u8} controls width="100%" height="500px" /> */}
       <iframe
         className="video-iframe rounded"
         title={episode.filename || "Video"}

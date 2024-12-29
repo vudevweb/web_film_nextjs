@@ -41,7 +41,7 @@ function DanhMucPhim({ movies = [], categoryTitle = "", domain = "" }) {
       >
         <Link href={`/phim/${slug}`} className="card__cover">
           {/* <img loading="lazy" src={posterUrl} alt={name} height={280} /> */}
-          <Image
+          <img
             loading="lazy"
             src={posterUrl}
             alt={`Poster of ${name}`}

@@ -15,7 +15,7 @@ const MovieCard = React.memo(({ movie, domain }) => {
       <div className="card card_movie text-center bg-none mt-1">
         <Link href={`/phim/${slug}`} className="card__cover">
           <div className="">
-            <Image
+            <img
               loading="lazy"
               src={image}
               alt={`Poster of ${name}`}

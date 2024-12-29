@@ -3,7 +3,6 @@ import Movie from "@/components/template/movie";
 import { useState, useEffect, useCallback } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 
-// Custom debounce hook
 const useDebounce = (value, delay) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
 
@@ -32,14 +31,13 @@ const Page = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const ITEMS_PER_PAGE = 12;
 
-  // Use debouncing for keyword search
   const debouncedKeyword = useDebounce(keyword, 500);
 
   const search = useCallback(async (keyword) => {
-    if (!keyword.trim()) return; // Avoid search if keyword is empty or just spaces
+    if (!keyword.trim()) return; 
 
     setLoading(true);
-    setAlert(""); // Reset alert on new search
+    setAlert("");
     try {
       const api = process.env.API_TIM_KIEM;
       const response = await fetch(`${api}?keyword=${keyword}`);
@@ -74,8 +72,6 @@ const Page = () => {
   const handleSearchChange = (e) => {
     const newKeyword = e.target.value;
     setKeyword(newKeyword);
-
-    // Use router.push to update the URL with the new keyword
     router.push(`/tim-kiem?keyword=${newKeyword}`);
   };
 
