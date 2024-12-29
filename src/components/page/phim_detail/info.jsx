@@ -151,10 +151,10 @@ const Info = ({ data }) => {
     <div className="card">
       <div className="card-body row">
         <div className="col-12 col-md-3 mb-3 mb-md-0">
-          <div
+          {/* <div
             className="position-relative"
             style={{ width: "100%", height: "450px" }}
-          >
+          > */}
             <img
               loading="lazy"
               src={
@@ -164,9 +164,9 @@ const Info = ({ data }) => {
               alt={name || "Poster"}
               className="rounded-2"
               fill
-              style={{ objectFit: "cover" }}
+              style={{ width: "100%", height: "450px" }}
             />
-          </div>
+          {/* </div> */}
         </div>
         <div className="col-12 col-md-9">
           <ul
