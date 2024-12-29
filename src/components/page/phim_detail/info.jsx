@@ -155,7 +155,7 @@ const Info = ({ data }) => {
             className="position-relative"
             style={{ width: "100%", height: "450px" }}
           >
-            <Image
+            <img
               loading="lazy"
               src={
                 poster_url ||
