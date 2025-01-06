@@ -11,7 +11,7 @@ const fetchMovies = async (url) => {
     return await response.json();
   } catch (error) {
     console.error("API Error:", error);
-    return null; // Trả về null nếu có lỗi
+    return null; 
   }
 };
 
@@ -48,7 +48,7 @@ const Home = async () => {
 
   return (
     <div>
-      <Noti />
+      {/* <Noti /> */}
       {categories.map(
         (category, index) =>
           category.data && (

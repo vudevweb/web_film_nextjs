@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import ReactPlayer from "react-player";
 import Comment from "./comment";
+import { Button } from "antd";
+
 const VideoPlayer = ({ episode }) => {
   if (!episode) {
     return (
@@ -82,22 +84,32 @@ const MoviePlayer = ({ initialData, params }) => {
     <div>
       {movieData.episodes.map((item, index) => (
         <div key={index} className="ps-3">
-          <div className="text-warning mb-2">
-            <strong>Server: </strong>
-            {item.server_name}
+          <div className=" mb-2">
+            <strong className="text-warning">Server: </strong>
+            <span className="text-dark">{item.server_name}</span>
           </div>
           {item.server_data.map((tapVip, i) => (
-            <Link
+            <Button
               key={i}
-              href={`/xem-phim/${movieData.movie.slug}/${tapVip.slug}?server=${index}`}
-              className={`btn btn-secondary btn-sm me-3 mb-3 ${
+              type={`${
                 index === serverIndex && tapVip.slug === tapSlug
-                  ? "btn-warning"
-                  : ""
+                  ? "primary"
+                  : "default"
               }`}
+              className={`me-3 mb-3`}
             >
-              {tapVip.name}
-            </Link>
+              <Link
+                key={i}
+                href={`/xem-phim/${movieData.movie.slug}/${tapVip.slug}?server=${index}`}
+                // className={`btn btn-secondary btn-sm me-3 mb-3 ${
+                //   index === serverIndex && tapVip.slug === tapSlug
+                //     ? "btn-warning"
+                //     : ""
+                // }`}
+              >
+                {tapVip.name}
+              </Link>
+            </Button>
           ))}
         </div>
       ))}
