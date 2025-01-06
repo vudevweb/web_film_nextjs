@@ -2,6 +2,7 @@
 // "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { Button } from "antd";
 const Info = ({ data }) => {
   if (!data || !data.movie) {
     return <div>Error loading movie details.</div>;
@@ -127,18 +128,19 @@ const Info = ({ data }) => {
         <div className="p-3">
           {episodes.map((episode, index) => (
             <div key={index}>
-              <div className="text-warning">
-                <strong>Server: </strong>
-                {episode.server_name}
+              <div className="mb-2">
+                <strong className="text-warning">Server: </strong>
+                <span className="text-dark">{episode.server_name}</span>
               </div>
               {episode.server_data.map((ep, i) => (
-                <Link
-                  key={i}
-                  href={`/xem-phim/${movie.slug}/${ep.slug}?server=${index}`}
-                  className="btn btn-secondary btn-sm mt-2 me-2"
-                >
-                  {ep.name}
-                </Link>
+                <Button key={i} type={`default`} className={`me-3 mb-3`}>
+                  <Link
+                    key={i}
+                    href={`/xem-phim/${movie.slug}/${ep.slug}?server=${index}`}
+                  >
+                    {ep.name}
+                  </Link>
+                </Button>
               ))}
             </div>
           ))}
@@ -155,17 +157,17 @@ const Info = ({ data }) => {
             className="position-relative"
             style={{ width: "100%", height: "450px" }}
           > */}
-            <img
-              loading="lazy"
-              src={
-                poster_url ||
-                "https://lh5.googleusercontent.com/proxy/CGWXSjMMd2FLW31MkAwyyg6CTEa5JYhkmoqOjQOmJbdrIKICImHlALT85CBWNPzJ5WdaGavA6OBY9SSO7YMWaQ7om0jHPu8"
-              }
-              alt={name || "Poster"}
-              className="rounded-2"
-              fill
-              style={{ width: "100%", height: "450px" }}
-            />
+          <img
+            loading="lazy"
+            src={
+              poster_url ||
+              "https://lh5.googleusercontent.com/proxy/CGWXSjMMd2FLW31MkAwyyg6CTEa5JYhkmoqOjQOmJbdrIKICImHlALT85CBWNPzJ5WdaGavA6OBY9SSO7YMWaQ7om0jHPu8"
+            }
+            alt={name || "Poster"}
+            className="rounded-2"
+            fill
+            style={{ width: "100%", height: "450px" }}
+          />
           {/* </div> */}
         </div>
         <div className="col-12 col-md-9">
