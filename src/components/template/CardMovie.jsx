@@ -2,7 +2,7 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
+import { Link } from 'next-view-transitions'
 import { Pagination } from "antd";
 import { useRouter } from "next/navigation";
 import Image from "next/image";

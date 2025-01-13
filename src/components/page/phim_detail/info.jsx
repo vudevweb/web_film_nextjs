@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 // "use client";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from 'next-view-transitions'
 import { Button } from "antd";
 const Info = ({ data }) => {
   if (!data || !data.movie) {

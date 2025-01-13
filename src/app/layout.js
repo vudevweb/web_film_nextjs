@@ -6,6 +6,7 @@ import Loading from "./loading";
 import AppHeader from "@/components/layouts/header";
 import AppSearch from "@/components/template/search";
 import AppFooter from "@/components/layouts/footer";
+import { ViewTransitions } from "next-view-transitions";
 import "../assets/css/main.css";
 import "../assets/css/navbar.css";
 import "../assets/css/theme.min.css";
@@ -23,35 +24,36 @@ export const metadata = {
   type: "website",
   site_name: "Phimmoi",
   locale: "vi_VN",
-  
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="vi" data-theme="dark">
-      <body className="container">
-        <Analytics />
-        <Suspense fallback={<Loading />}>
-          <AppHeader />
-          <main className="mt-17" style={{ minHeight: "100vh" }}>
-            <AppSearch />
-            {children}
-          </main>
-          <AppFooter />
-        </Suspense>
+    <ViewTransitions >
+      <html lang="vi" data-theme="dark">
+        <body className="container">
+          <Analytics />
+          <Suspense fallback={<Loading />}>
+            <AppHeader />
+            <main className="mt-17" style={{ minHeight: "100vh" }}>
+              <AppSearch />
+              {children}
+            </main>
+            <AppFooter />
+          </Suspense>
 
-        <Script
-          src="/js/jquery-3.5.1.slim.min.js"
-          strategy="beforeInteractive"
-        />
-        <Script
-          src="/js/bootstrap.bundle.min.js"
-          strategy="beforeInteractive"
-        />
-        <Script src="/js/theme.min.js" strategy="beforeInteractive" />
-        <Script src="/js/smooth-scrollbar.js" strategy="beforeInteractive" />
-        <Script src="/js/mode.js" strategy="beforeInteractive" />
-      </body>
-    </html>
+          <Script
+            src="/js/jquery-3.5.1.slim.min.js"
+            strategy="beforeInteractive"
+          />
+          <Script
+            src="/js/bootstrap.bundle.min.js"
+            strategy="beforeInteractive"
+          />
+          <Script src="/js/theme.min.js" strategy="beforeInteractive" />
+          <Script src="/js/smooth-scrollbar.js" strategy="beforeInteractive" />
+          <Script src="/js/mode.js" strategy="beforeInteractive" />
+        </body>
+      </html>
+    </ViewTransitions>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
+// import Link from "next/link";
+import { Link } from "next-view-transitions";
 
 const AppHeader = () => {
   const [currentPath, setCurrentPath] = useState("");
@@ -173,6 +174,9 @@ const AppHeader = () => {
                         <a
                           className="dropdown-item"
                           href={`/the-loai/${item.slug}`}
+                          onClick={() =>
+                            setCurrentPath(`/the-loai/${item.slug}`)
+                          }
                         >
                           {item.name}
                         </a>
@@ -205,6 +209,9 @@ const AppHeader = () => {
                         <a
                           className="dropdown-item"
                           href={`/the-loai/${item.slug}`}
+                          onClick={() =>
+                            setCurrentPath(`/the-loai/${item.slug}`)
+                          }
                         >
                           {item.name}
                         </a>
@@ -237,13 +244,16 @@ const AppHeader = () => {
                         <a
                           className="dropdown-item"
                           href={`/the-loai/${item.slug}`}
+                          onClick={() =>
+                            setCurrentPath(`/the-loai/${item.slug}`)
+                          }
                         >
                           {item.name}
                         </a>
                       ) : (
                         <Link
                           className="dropdown-item"
-                          href={`/nam-phat-hanh/${item.slug}`}
+                          href={`/nam/${item.slug}`}
                         >
                           {item.name}
                         </Link>

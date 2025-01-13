@@ -1,6 +1,6 @@
 // MoviePlayer.js (Client Component)
 "use client";
-import Link from "next/link";
+import { Link } from 'next-view-transitions'
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import ReactPlayer from "react-player";
