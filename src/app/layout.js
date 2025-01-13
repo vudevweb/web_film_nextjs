@@ -7,6 +7,7 @@ import AppHeader from "@/components/layouts/header";
 import AppSearch from "@/components/template/search";
 import AppFooter from "@/components/layouts/footer";
 import { ViewTransitions } from "next-view-transitions";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "../assets/css/main.css";
 import "../assets/css/navbar.css";
 import "../assets/css/theme.min.css";
@@ -28,7 +29,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <ViewTransitions >
+    <ViewTransitions>
       <html lang="vi" data-theme="dark">
         <body className="container">
           <Analytics />
@@ -37,6 +38,7 @@ export default function RootLayout({ children }) {
             <main className="mt-17" style={{ minHeight: "100vh" }}>
               <AppSearch />
               {children}
+              <GoogleAnalytics gaId="G-2P6NS4S106" />
             </main>
             <AppFooter />
           </Suspense>
